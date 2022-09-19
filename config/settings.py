@@ -18,10 +18,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-9!d$r!ie@(!mxw9id46u#y0q__al6mmi3$r94$6wvmm6_747bk'
+SECRET_KEY = env.str("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool("DEBUG", default=False)
+
 
 ALLOWED_HOSTS = ['.herokuapp.com', 'localhost', '127.0.0.1']
 
@@ -86,6 +87,11 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+DATABASES = {
+"default": env.dj_db_url("DATABASE_URL")
+}
+
+
 
 
 # Password validation
@@ -147,3 +153,8 @@ import django_heroku
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
+
+from environs import Env # new
+
+env = Env() # new
+env.read_env() # new
