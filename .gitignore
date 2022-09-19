@@ -2,4 +2,4 @@ venv
 Include 
 Lib
 Scripts
-
+db.sqlite3
